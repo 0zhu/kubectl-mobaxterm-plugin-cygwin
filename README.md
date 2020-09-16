@@ -1,4 +1,4 @@
-# kubectl-mobaxterm-plugin-cygwin
+# kubectl plugin for MobaXterm
 
 ## Installation
 
