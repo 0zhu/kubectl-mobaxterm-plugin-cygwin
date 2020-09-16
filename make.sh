@@ -20,7 +20,13 @@ fi
 KLATEST=$( curl -skL https://storage.googleapis.com/kubernetes-release/release/stable.txt )
 echo Latest kubectl release: "$KLATEST"
 curl -kLo "$KEXE" https://storage.googleapis.com/kubernetes-release/release/"$KLATEST"/bin/windows/"$KBIT"/kubectl.exe
-zip "$KPLUGIN" "$KEXE"
+
+# https://kubernetes.io/docs/tasks/tools/install-kubectl/#enable-kubectl-autocompletion
+KCOMP=/usr/share/bash-completion/completions
+mkdir -p "$KCOMP"
+"$KEXE" completion bash > "$KCOMP"/kubectl
+
+zip "$KPLUGIN" "$KEXE" "$KCOMP"/kubectl
 echo Plugin file: $( realpath "$KPLUGIN" )
 
 if [ "$KEXIST" ]; then
